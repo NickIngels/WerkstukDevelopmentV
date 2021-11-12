@@ -2,19 +2,19 @@ version: "3.9"
 services:
 
   api:
-    build: ./
-    image: crshlab/api_test:0.1
+    build: ./api
     ports:
-      - "80:${PORT}"
+      - "80:${APIPORT}"
     environment:
-     - PG_CON=postgress://${POSTGRES_USER}:${POSTGRES_PASSWORD}@pg:5432/${POSTGRES_DB}
-     - PORT
+      PG_CONNECTION_STRING: postgress://${POSTGRES_USER}:${POSTGRES_PASSWORD}@pg:5432/${POSTGRES_DB}
+      PORT: ${APIPORT}
     volumes:
      - ./api/src:/usr/app/src
     depends_on:
      - pg
 
   pg:
+   container_name: ${POSTGRES_DB}
    image: postgres:latest
    ports:
     - 5432:5432
