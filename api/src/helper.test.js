@@ -12,6 +12,16 @@ it('tests if connection to endpoint is successful', async () => {
     expect(response.body.status).toBe("Gebruikers opgehaald");
 });
 
+it('tests if recieving Gebruikerdata is succesful', async () => {
+    const response = await request(index.app).get('/database/Gebruikers');
+    expect(response.statusCode).toEqual(200);
+});
+
+it('tests if deleting GebruikerData is succesful', async () => {
+    const response = await request(index.app).delete('/database/deleteGebruiker/1');
+    expect(response.statusCode).toEqual(200);
+});
+
 test("testing port length", () => {
     expect(helpers.checkPortLength(index.port.toString())).toBeFalsy();
 })
