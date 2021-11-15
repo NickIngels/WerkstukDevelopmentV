@@ -16,7 +16,6 @@ const pg = require('knex')({
 
 });
 
-
 //This functions creates a user table which contains an id, a name and an email address
 async function createGebruikersTable() {
     await pg.schema.hasTable('Gebruikers').then(function (exists) {
@@ -96,5 +95,6 @@ insertGebruikersData();
 
 
 module.exports = {
-    port
+    port,
+    app
 }

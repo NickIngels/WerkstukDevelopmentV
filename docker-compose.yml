@@ -4,7 +4,7 @@ services:
   api:
     build: ./api
     ports:
-      - "80:${APIPORT}"
+      - "80:6000"
     environment:
       PG_CONNECTION_STRING: postgress://${POSTGRES_USER}:${POSTGRES_PASSWORD}@pg:5432/${POSTGRES_DB}
       PORT: ${APIPORT}
