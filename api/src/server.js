@@ -27,13 +27,24 @@ async function createGebruikersTable() {
     await pg.schema.hasTable('Gebruikers').then(function (exists) {
         if (!exists) {
             tableExists = true;
-            return pg.schema.createTable('Gebruikers', function (t) {
-                t.increments('UUID').primary();
-                t.string('naam', 100);
-                t.string('email', 100);
-            });
+            return pg.schema
+                .createTable('categorieen', function (t) {
+                    t.increments('categorieId').primary;
+                    t.string('categorie', 10);
+                })
+                .createTable('Gebruikers', function (t) {
+                    t.increments('UUID').primary();
+                    t.string('naam', 100);
+                    t.string('email', 100);
+                    t.integer('categorie', 3).unsigned().references('categorieId').inTable('categorieen');
+                }).then();
         }
     });
+
+    if (tableExists) {
+        await insertCategorieData();
+        await insertGebruikersData();
+    }
 }
 
 
@@ -42,19 +53,26 @@ async function createGebruikersTable() {
 async function insertGebruikersData() {
     await pg.table('Gebruikers').insert({
         naam: "Dirk",
-        email: "Dirkmail"
+        email: "Dirkmail",
+        categorie: "1"
     })
 }
 
-if (tableExists) {
-    insertGebruikersData();
+async function insertCategorieData() {
+    await pg.table('categorieen').insert({
+        categorieId: "1",
+        categorie: "jongen"
+    })
 }
+
+
 
 //Testing post
 async function postGebruiker(name, mail) {
     return await pg.table('Gebruikers').insert({
         naam: name,
-        email: mail
+        email: mail,
+        categorie: "1"
     })
 }
 
