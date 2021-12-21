@@ -8,16 +8,26 @@ const {
 } = require("assert");
 
 
-it('tests if connection to endpoint is successful', async () => {
+it('tests if getting GebruikerData is succesful', async () => {
     const response = await request(app).get('/database/Gebruikers');
     expect(response.statusCode).toEqual(200);
     expect(response.body.status).toBe("Gebruikers opgehaald");
 });
 
-it('tests if recieving Gebruikerdata is succesful', async () => {
-    const response = await request(app).get('/database/Gebruikers');
+it('tests if getting GebruikerData is succesful', async () => {
+    const response = await request(app).post('/database/postGebruiker/waytoolongname/mail');
+    expect(response.statusCode).toEqual(500);
+});
+
+it('tests if getting GebruikerData is succesful', async () => {
+    const response = await request(app).post('/database/postGebruiker/goodname/mail');
     expect(response.statusCode).toEqual(200);
 });
+
+// it('tests if recieving Gebruikerdata is succesful', async () => {
+//     const response = await request(app).get('/database/Gebruikers');
+//     expect(response.statusCode).toEqual(200);
+// });
 
 it('tests if deleting GebruikerData is succesful', async () => {
     const response = await request(app).delete('/database/deleteGebruiker/5');
@@ -31,6 +41,7 @@ it('tests if deleting GebruikerData is succesful', async () => {
 //test("testing url", () => {
 //    expect(helpers.checkIfURL(`http://localhost:${app.port}`)).toBeFalsy();
 //})
+
 describe('helper', () => {
     test("obviously runs", () => {
         expect(1 === 1).toBeTruthy();

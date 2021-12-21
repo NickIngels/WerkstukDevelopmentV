@@ -2,10 +2,14 @@
 
 
 // Express
-
+const {
+    error
+} = require('console');
 const express = require('express');
 const app = express();
 const bgRouter = express.Router();
+
+let tableExists = false;
 
 // Knex
 const pg = require('knex')({
@@ -22,6 +26,7 @@ const pg = require('knex')({
 async function createGebruikersTable() {
     await pg.schema.hasTable('Gebruikers').then(function (exists) {
         if (!exists) {
+            tableExists = true;
             return pg.schema.createTable('Gebruikers', function (t) {
                 t.increments('UUID').primary();
                 t.string('naam', 100);
@@ -31,6 +36,8 @@ async function createGebruikersTable() {
     });
 }
 
+
+
 //With this function you can post user information
 async function insertGebruikersData() {
     await pg.table('Gebruikers').insert({
@@ -38,6 +45,30 @@ async function insertGebruikersData() {
         email: "Dirkmail"
     })
 }
+
+if (tableExists) {
+    insertGebruikersData();
+}
+
+//Testing post
+async function postGebruiker(name, mail) {
+    return await pg.table('Gebruikers').insert({
+        naam: name,
+        email: mail
+    })
+}
+
+bgRouter.route('/postGebruiker/:name/:mail')
+    .post((req, res) => {
+        if (req.params.name.length > 10 || req.params.mail.length > 20) {
+            throw (error)
+        } else {
+            postGebruiker(req.params.name, req.params.mail);
+            res.send("Gebruiker toegevoegd")
+        }
+
+    })
+
 
 //This function gets all user data
 async function gebruikersData() {
@@ -92,7 +123,7 @@ app.use('/database', bgRouter);
 
 
 createGebruikersTable();
-insertGebruikersData();
+//insertGebruikersData();
 
 
 module.exports = {
