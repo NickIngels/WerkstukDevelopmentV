@@ -120,10 +120,21 @@ async function updateGebruiker(UUID, name, mail) {
     return await pg.table('Gebruikers').where('UUID', '=', UUID).update('naam', name).update('email', mail)
 }
 
+//This function allows you to update category information using the id of the category
+async function updateCategorie(UUID, categorie) {
+    return await pg.table('categorieen').where('categorieId', '=', UUID).update('categorie', categorie)
+}
+
 bgRouter.route('/updateGebruiker/:UUID/:name/:mail')
     .patch((req, res) => {
         updateGebruiker(req.params.UUID, req.params.name, req.params.mail);
         res.send("Updated gebruiker")
+    });
+
+bgRouter.route('/updateCategorie/:UUID/:categorie')
+    .patch((req, res) => {
+        updateCategorie(req.params.UUID, req.params.categorie);
+        res.send("Updated categorie")
     });
 
 bgRouter.route('/postGebruiker/:name/:mail/:categorie')
