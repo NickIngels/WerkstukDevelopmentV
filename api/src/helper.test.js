@@ -49,3 +49,8 @@ it('tests if deleting GebruikerData is succesful', async () => {
     const response = await request(app).delete('/database/deleteGebruiker/3');
     expect(response.statusCode).toEqual(200);
 });
+
+it('tests if deleting categorieData is succesful', async () => {
+    const response = await request(app).delete('/database/deleteCategorie/4');
+    expect(response.statusCode).toEqual(200);
+});
