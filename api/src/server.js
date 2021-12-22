@@ -49,44 +49,54 @@ async function createGebruikersTable() {
 
 
 
-//With this function you can post user information
+//With this function you can post user information when initialising the database
 async function insertGebruikersData() {
     await pg.table('Gebruikers').insert({
         naam: "Dirk",
         email: "Dirkmail",
         categorie: "1"
     })
+    await pg.table('Gebruikers').insert({
+        naam: "Max",
+        email: "Maxmail",
+        categorie: "3"
+    })
 }
 
+//With this function you can post categories when initialising the database
 async function insertCategorieData() {
     await pg.table('categorieen').insert({
         categorieId: "1",
         categorie: "jongen"
     })
+    await pg.table('categorieen').insert({
+        categorieId: "2",
+        categorie: "meisje"
+    })
+    await pg.table('categorieen').insert({
+        categorieId: "3",
+        categorie: "huisdier"
+    })
 }
 
 
 
-//Testing post
-async function postGebruiker(name, mail) {
+//This function posts user data
+async function postGebruiker(name, mail, categorie) {
     return await pg.table('Gebruikers').insert({
         naam: name,
         email: mail,
-        categorie: "1"
+        categorie: categorie
     })
 }
 
-bgRouter.route('/postGebruiker/:name/:mail')
-    .post((req, res) => {
-        if (req.params.name.length > 10 || req.params.mail.length > 20) {
-            throw (error)
-        } else {
-            postGebruiker(req.params.name, req.params.mail);
-            res.send("Gebruiker toegevoegd")
-        }
-
+//This function posts category data
+async function postCategorie(name, id) {
+    return await pg.table('categorieen').insert({
+        categorieId: id,
+        categorie: name
     })
-
+}
 
 //This function gets all user data
 async function gebruikersData() {
@@ -109,6 +119,26 @@ bgRouter.route('/updateGebruiker/:UUID')
         res.send("Updated gebruiker")
     });
 
+bgRouter.route('/postGebruiker/:name/:mail/:categorie')
+    .post((req, res) => {
+        if (req.params.name.length > 10 || req.params.mail.length > 20) {
+            throw (error)
+        } else {
+            postGebruiker(req.params.name, req.params.mail, req.params.categorie);
+            res.send("Gebruiker toegevoegd")
+        }
+    })
+
+bgRouter.route('/postCategorie/:name/:id')
+    .post((req, res) => {
+        if (req.params.name.length > 10 || req.params.id.length > 3) {
+            throw (error)
+        } else {
+            postCategorie(req.params.name, req.params.id);
+            res.send("Categorie toegevoegd")
+        }
+    })
+
 bgRouter.route('/gebruikers')
     .get((req, res) => {
         gebruikersData().then((databaseData) => {
@@ -125,12 +155,6 @@ bgRouter.route('/deleteGebruiker/:UUID')
         res.send("Gebruiker deleted")
     });
 
-// Work in progress
-// app.post('/addGebruiker', (req, res) => {
-//     );
-//     res.send("Gebruiker toegevoegd")
-// });
-
 app.get('/', (req, res) => {
 
     res.send("Hello world")
@@ -141,7 +165,6 @@ app.use('/database', bgRouter);
 
 
 createGebruikersTable();
-//insertGebruikersData();
 
 
 module.exports = {
