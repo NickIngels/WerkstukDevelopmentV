@@ -1,7 +1,5 @@
 # WerkstukDevelopmentV
-develop!
 How to run this program?
-
 
 Create a .env file in the root of your project which contains the following:
 PORT=5432
