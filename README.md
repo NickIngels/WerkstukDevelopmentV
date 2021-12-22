@@ -37,3 +37,11 @@ http://localhost/database/updateGebruiker/gebruikerId/name/mail
 3.1 update categorie table
 Change 'categorieId' into the id of the category you want to change for example 2. change 'categorie' into the new category name
 http://localhost/database/updateCategorie/categorieId/categorie
+
+4. delete user (delete)
+change 'gebruikerId' into the id of the item you want to delete. For example '1'
+http://localhost/database/deleteGebruiker/gebruikerId
+
+4.1 delete category
+change 'categorieId' into the id of the item you want to delete. For example '1'
+http://localhost/database/deleteCategorie/categorieId
