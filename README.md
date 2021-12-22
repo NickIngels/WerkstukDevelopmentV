@@ -16,7 +16,7 @@ POSTGRES_DB=Gebruikers
 Run "docker-compose up --build" in your terminal (be sure to be in the api folder)
 
 Routes:
-1. create user
+1. create user (post)
 Replace 'name' by the name you want (beware a name can't contain more than 10 characters), replace 'mail' by your email address (no longer than 15 characters) and 'categorieId' by the catogory id you want to use. For example '1' or '2'
 http://localhost/database/postGebruiker/name/mail/categorieId
 
@@ -24,7 +24,16 @@ http://localhost/database/postGebruiker/name/mail/categorieId
 Replace 'category' by your category name (beware a category name can't contain more than 10 characters), replace 'categoryId' by your id address (no longer than 2 characters)
 http://localhost/database/postCategorie/category/categoryId
 
-2. read user table
+2. read user table (get)
 http://localhost/database/Gebruikers
+
 2.1 read category table
 http://localhost/database/categorieen
+
+3. update user table (patch)
+Change 'gebruikerId' into the id of the user you want to change for example 2. change 'name' into the new username and change 'mail' in the new mail credentials
+http://localhost/database/updateGebruiker/gebruikerId/name/mail
+
+3.1 update categorie table
+Change 'categorieId' into the id of the category you want to change for example 2. change 'categorie' into the new category name
+http://localhost/database/updateCategorie/categorieId/categorie
