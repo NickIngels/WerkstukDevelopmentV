@@ -1,6 +1,5 @@
 //Dockerhub access token dc518349-b132-474a-92b1-faf1d44e5520
 
-
 // Express
 const {
     error
@@ -61,6 +60,11 @@ async function insertGebruikersData() {
         email: "Maxmail",
         categorie: "3"
     })
+    await pg.table('Gebruikers').insert({
+        naam: "Kenzo",
+        email: "Kenzomail",
+        categorie: "3"
+    })
 }
 
 //With this function you can post categories when initialising the database
@@ -78,8 +82,6 @@ async function insertCategorieData() {
         categorie: "huisdier"
     })
 }
-
-
 
 //This function posts user data
 async function postGebruiker(name, mail, categorie) {
@@ -101,6 +103,11 @@ async function postCategorie(name, id) {
 //This function gets all user data
 async function gebruikersData() {
     return await pg.select().table("Gebruikers");
+}
+
+//This function gets all category data
+async function categorieData() {
+    return await pg.select().table("categorieen");
 }
 
 //This function lets you delete a user, when providing an id
@@ -142,9 +149,17 @@ bgRouter.route('/postCategorie/:name/:id')
 bgRouter.route('/gebruikers')
     .get((req, res) => {
         gebruikersData().then((databaseData) => {
-            //console.log(databaseData);
             res.send({
                 status: "Gebruikers opgehaald"
+            })
+        })
+    })
+
+bgRouter.route('/categorieen')
+    .get((req, res) => {
+        gebruikersData().then((databaseData) => {
+            res.send({
+                status: "Categorieen opgehaald"
             })
         })
     })
@@ -162,10 +177,7 @@ app.get('/', (req, res) => {
 
 app.use('/database', bgRouter);
 
-
-
 createGebruikersTable();
-
 
 module.exports = {
     app
