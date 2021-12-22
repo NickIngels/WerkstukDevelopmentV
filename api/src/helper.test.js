@@ -35,6 +35,16 @@ it('tests if posting categorieData is succesful', async () => {
     expect(response.statusCode).toEqual(200);
 });
 
+it('tests if updating gebruikerData is succesful', async () => {
+    const response = await request(app).post('/database/updateGebruiker/2/Jeannine/jeanninemail');
+    expect(response.statusCode).toEqual(200);
+});
+
+it('tests if updating categorieData is succesful', async () => {
+    const response = await request(app).post('/database/updateCategorie/2/apple');
+    expect(response.statusCode).toEqual(200);
+});
+
 it('tests if deleting GebruikerData is succesful', async () => {
     const response = await request(app).delete('/database/deleteGebruiker/2');
     expect(response.statusCode).toEqual(200);
