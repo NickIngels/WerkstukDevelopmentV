@@ -1,6 +1,5 @@
 //Dockerhub access token dc518349-b132-474a-92b1-faf1d44e5520
 
-
 // Express
 const {
     error
@@ -178,10 +177,7 @@ app.get('/', (req, res) => {
 
 app.use('/database', bgRouter);
 
-
-
 createGebruikersTable();
-
 
 module.exports = {
     app
