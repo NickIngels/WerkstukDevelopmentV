@@ -116,13 +116,13 @@ async function deleteGebruiker(UUID) {
 }
 
 //This function allows you to update user information using the id of the user
-async function updateGebruiker(UUID) {
-    return await pg.table('Gebruikers').where('UUID', '=', UUID).update('naam', "Nick")
+async function updateGebruiker(UUID, name, mail) {
+    return await pg.table('Gebruikers').where('UUID', '=', UUID).update('naam', name).update('email', mail)
 }
 
-bgRouter.route('/updateGebruiker/:UUID')
+bgRouter.route('/updateGebruiker/:UUID/:name/:mail')
     .patch((req, res) => {
-        updateGebruiker(req.params.UUID);
+        updateGebruiker(req.params.UUID, req.params.name, req.params.mail);
         res.send("Updated gebruiker")
     });
 
@@ -157,7 +157,7 @@ bgRouter.route('/gebruikers')
 
 bgRouter.route('/categorieen')
     .get((req, res) => {
-        gebruikersData().then((databaseData) => {
+        categorieData().then((databaseData) => {
             res.send({
                 status: "Categorieen opgehaald"
             })
