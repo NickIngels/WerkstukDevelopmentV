@@ -1,8 +1,12 @@
-# WerkstukDevelopmentV
-develop!
+# WerkstukDevelopmentV - Relational database
+
+What do you need?
+- code editor. For example visual studio code
+- docker desktop app
+- tableplus to view tables (or another program)
+- Thunder client as a visual studio code plugin to test routes
+
 How to run this program?
-
-
 Create a .env file in the root of your project which contains the following:
 PORT=5432
 APIPORT=6000
