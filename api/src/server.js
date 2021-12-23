@@ -81,6 +81,10 @@ async function insertCategorieData() {
         categorieId: "3",
         categorie: "huisdier"
     })
+    await pg.table('categorieen').insert({
+        categorieId: "4",
+        categorie: "garbage"
+    })
 }
 
 //This function posts user data
@@ -113,6 +117,11 @@ async function categorieData() {
 //This function lets you delete a user, when providing an id
 async function deleteGebruiker(UUID) {
     return await pg.table('Gebruikers').where('UUID', '=', UUID).del()
+}
+
+//This function lets you delete a category, when providing an id
+async function deleteCategorie(UUID) {
+    return await pg.table('categorieen').where('UUID', '=', UUID).del()
 }
 
 //This function allows you to update user information using the id of the user
@@ -179,6 +188,12 @@ bgRouter.route('/deleteGebruiker/:UUID')
     .delete((req, res) => {
         deleteGebruiker(req.params.UUID);
         res.send("Gebruiker deleted")
+    });
+
+bgRouter.route('/deleteCategorie/:UUID')
+    .delete((req, res) => {
+        deleteCategorie(req.params.UUID);
+        res.send("Categorie deleted")
     });
 
 app.get('/', (req, res) => {

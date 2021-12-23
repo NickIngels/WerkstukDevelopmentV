@@ -1,6 +1,12 @@
-# WerkstukDevelopmentV
-How to run this program?
+# WerkstukDevelopmentV - Relational database
 
+What do you need?
+- code editor. For example visual studio code
+- docker desktop app
+- tableplus to view tables (or another program)
+- Thunder client as a visual studio code plugin to test routes
+
+How to run this program?
 Create a .env file in the root of your project which contains the following:
 PORT=5432
 APIPORT=6000
@@ -11,7 +17,8 @@ POSTGRES_DB=Gebruikers
 
 ////////////////////////////////////////////////////////
 
-Run "docker-compose up --build" in your terminal (be sure to be in the api folder)
+Run "docker-compose up --build" in your terminal 
+To run your tests run the 'npm test' command in your terminal (be sure to be in the api folder)
 
 Routes:
 1. create user (post)
@@ -35,3 +42,11 @@ http://localhost/database/updateGebruiker/gebruikerId/name/mail
 3.1 update categorie table
 Change 'categorieId' into the id of the category you want to change for example 2. change 'categorie' into the new category name
 http://localhost/database/updateCategorie/categorieId/categorie
+
+4. delete user (delete)
+change 'gebruikerId' into the id of the item you want to delete. For example '1'
+http://localhost/database/deleteGebruiker/gebruikerId
+
+4.1 delete category
+change 'categorieId' into the id of the item you want to delete. For example '1'
+http://localhost/database/deleteCategorie/categorieId
