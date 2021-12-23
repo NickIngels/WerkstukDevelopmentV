@@ -17,7 +17,8 @@ POSTGRES_DB=Gebruikers
 
 ////////////////////////////////////////////////////////
 
-Run "docker-compose up --build" in your terminal (be sure to be in the api folder)
+Run "docker-compose up --build" in your terminal 
+To run your tests run the 'npm test' command in your terminal (be sure to be in the api folder)
 
 Routes:
 1. create user (post)
